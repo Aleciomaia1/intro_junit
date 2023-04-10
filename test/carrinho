@@ -1,0 +1,55 @@
+package carrinho;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+
+import produto.Produto;
+import produto.ProdutoNaoEncontradoException;
+
+public class carrinhoTest {
+	
+	Carrinho carrinho = new Carrinho();
+	Produto produto;
+	
+	
+	@Before
+	public void adicionaProdutos() {		
+		produto = new Produto("ovo caribe", 68.00);
+		carrinho.addItem(produto);
+		produto = new Produto("ovo kinder", 89.00);
+		carrinho.addItem(produto);
+		produto = new Produto("ovo prestigio", 57.00);
+		carrinho.addItem(produto);
+		produto = new Produto("ovo chokito", 87.00);
+		carrinho.addItem(produto);	
+		System.out.println("Produtos adicionados");
+	}
+	
+	@Test
+	public void visualizaCarrinho() {		
+		Assertions.assertEquals(291.00, carrinho.getValorTotal());
+		Assertions.assertEquals(4, carrinho.getQtdeItems());
+	}
+	
+	@Test
+	public void removerItemDoCarrinho() throws ProdutoNaoEncontradoException{
+		produto = new Produto("ovo prestigio", 57.00);
+		carrinho.removeItem(produto);
+		System.out.println("Removido"); 
+		Assertions.assertEquals(234.00, carrinho.getValorTotal());
+		Assertions.assertEquals(3, carrinho.getQtdeItems());
+	
+	}	
+	
+	@Test
+	public void LimparCarrinho() {
+		carrinho.esvazia();
+		Assertions.assertEquals(00.00, carrinho.getValorTotal());
+		Assertions.assertEquals(0, carrinho.getQtdeItems());
+		
+	}
+	
+
+}
